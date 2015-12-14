@@ -1,4 +1,4 @@
-from sqlalchemy.dialects.mysql import SMALLINT
+from sqlalchemy.dialects.mysql import TINYINT, SMALLINT
 from sqlalchemy.sql import expression
 from gitmostwanted.lib.status import Status
 from gitmostwanted.lib.regex import SearchTerm
@@ -27,7 +27,7 @@ class Repo(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, index=True)
     checked_at = db.Column(db.DateTime, index=True)
     mature = db.Column(db.Boolean, nullable=False, server_default=expression.false(), index=True)
-    worth = db.Column(SMALLINT(display_width=1), nullable=False, server_default='3', index=True)
+    worth = db.Column(TINYINT(display_width=2), nullable=False, server_default='3', index=True)
     stargazers_count = db.Column(db.Integer, nullable=False, server_default='0')
     status_updated_at = db.Column(db.DateTime)
     status = db.Column(

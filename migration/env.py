@@ -1,8 +1,7 @@
-from __future__ import with_statement
-from alembic import context
-from sqlalchemy import engine_from_config, pool
-from logging.config import fileConfig
 from gitmostwanted.app import app, db
+from logging.config import fileConfig
+from sqlalchemy import engine_from_config, pool
+from alembic import context
 
 # models
 from gitmostwanted.models.repo import *
@@ -31,6 +30,8 @@ target_metadata = db.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
+config_custom = dict(target_metadata=target_metadata, compare_type=True)
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
@@ -44,9 +45,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
-    context.configure(url=url, target_metadata=target_metadata)
-
+    context.configure(url=config.get_main_option("sqlalchemy.url"), **config_custom)
     with context.begin_transaction():
         context.run_migrations()
 
@@ -58,21 +57,14 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    connectable = engine_from_config(
+    connectible = engine_from_config(
         config.get_section(config.config_ini_section),
         prefix='sqlalchemy.',
-        poolclass=pool.NullPool)
-
-    with connectable.connect() as connection:
-        context.configure(
-            connection=connection,
-            target_metadata=target_metadata
-        )
-
+        poolclass=pool.NullPool
+    )
+    with connectible.connect() as connection:
+        context.configure(connection=connection, **config_custom)
         with context.begin_transaction():
             context.run_migrations()
 
-if context.is_offline_mode():
-    run_migrations_offline()
-else:
-    run_migrations_online()
+run_migrations_offline() if context.is_offline_mode() else run_migrations_online()
