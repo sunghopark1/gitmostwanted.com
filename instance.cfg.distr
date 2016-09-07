@@ -7,8 +7,8 @@ SECRET_KEY = 'secret_key'
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://gitmostwanted:gitmostwanted_pwd@db/gitmostwanted?charset=utf8'
 
 # celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0',
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0',
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 # celery beat
 CELERY_INCLUDE = (
@@ -31,17 +31,22 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(minute=30, hour=1),
         'args': [3]
     },
+    'metadata-trend': {
+        'task': 'gitmostwanted.tasks.repo_metadata.metadata_trend',
+        'schedule': crontab(minute=0, hour=5, day_of_month='*/2'),
+        'args': [56]
+    },
     'most-starred-day': {
         'task': 'gitmostwanted.tasks.repo_most_starred.most_starred_day',
-        'schedule': crontab(minute=0, hour=1)
+        'schedule': crontab(minute=0, hour=8)
     },
     'most-starred-week': {
         'task': 'gitmostwanted.tasks.repo_most_starred.most_starred_week',
-        'schedule': crontab(minute=0, hour=2, day_of_week=0)
+        'schedule': crontab(minute=0, hour=9, day_of_week=0)
     },
     'most-starred-month': {
         'task': 'gitmostwanted.tasks.repo_most_starred.most_starred_month',
-        'schedule': crontab(minute=0, hour=3, day_of_month=1)
+        'schedule': crontab(minute=0, hour=10, day_of_month=1)
     },
     'status-refresh': {
         'task': 'gitmostwanted.tasks.repo_status.status_refresh',
@@ -71,7 +76,6 @@ GITHUB_OAUTH = {
 
 # google
 GOOGLE_BIGQUERY = {
-    'private_key_path': None,
-    'account_name': None,
+    'json_key_path': None,
     'project_id': None
 }

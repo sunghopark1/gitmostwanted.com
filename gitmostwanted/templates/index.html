@@ -21,7 +21,8 @@
   </ul>
 
   <div class="row" id="gh-entries">
-    {{ repository_filter(languages) }}
+    {% call repository_filter(languages) %}
+    {% endcall %}
 
     <div class="small-12 columns">
       <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3">
@@ -29,7 +30,7 @@
           {% call(repo) repository(entry.repo) %}
             <div class="right">
               <span class="label secondary">
-                +{{ entry.cnt_watch }} <i class="fi-star"></i>
+                +{{ entry.cnt_watch|number_humanize }} <i class="fi-star"></i>
               </span>
             </div>
 

@@ -18,7 +18,7 @@
     <nav class="top-bar" data-topbar role="navigation" style="margin-bottom: 2px">
       <ul class="title-area">
         <li class="name">
-          <h1><a href="/">GitHub Explorer<sup><small>beta</small></sup></a></h1>
+          <h1><a href="/">GitHub Explorer</a></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
       </ul>
@@ -30,7 +30,9 @@
         <p>
           Each promoted or created by a famous company repository is popular at the beginning. Also it is possible to have a
           number of them which are in trend right now (publications, marketing, events).
-          It doesn't mean that those repositories are useful.
+          It doesn't mean that those repositories are useful. As an example, compare these two links: <a href="/top/">Top</a> vs
+          <a href="https://github.com/search?o=desc&q=stars%3A%3E10000&s=stars&type=Repositories" target="_blank">GitHub search</a>
+          ordered by stars
         </p>
         <p>
           The gitmostwanted.com project analyses <a href="https://www.githubarchive.org/" target="_blank">githubarchive</a>
@@ -48,7 +50,7 @@
 
       <section class="top-bar-section">
         <ul class="right">
-          <li><a href="https://github.com/Letscodeit/gitmostwanted.com"
+          <li><a href="https://github.com/kkamkou/gitmostwanted.com"
             target="_blank">Fork it!</a></li>
           {% if not g.user %}
             <li><a href="#" data-reveal-id="whatIsGmwModal">What is it?</a></li>
@@ -89,6 +91,7 @@
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/vendor/jquery.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/vendor/modernizr.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+  <script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='common.js') }}"></script>
   <script type="text/javascript">
     $(document).foundation();

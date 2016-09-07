@@ -35,10 +35,14 @@ $(function () {
       }
       $elem.removeClass('info').addClass('secondary');
     });
+    $formFilter.find('input[autofocus]:visible').focus();
     return false;
   });
 
   $('a.attitude').click(function () {
+    if (!$(this).hasClass('secondary')) {
+      return false;
+    }
     $.get($(this).attr('href'), function () {
       window.location.reload();
     });
